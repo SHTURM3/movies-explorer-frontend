@@ -1,0 +1,154 @@
+.header {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 18px 70px;
+    background-color: #5C5C5C;
+}
+.header_white{
+    background-color: #fff;
+    padding-bottom: 88px;
+}
+.header__wrapper{
+    display: flex;
+    align-items: center;
+}
+.header__nav{
+    display: flex;
+    margin-left: 44px;
+}
+.header__link{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    text-decoration: none;
+    color: #000;
+    margin: 0;
+    margin-right: 17px;
+    cursor: pointer;
+}
+.header__link:hover{
+    opacity: 0.7;
+}
+.header__link_active{
+    font-weight: 500;
+}
+.header__link:last-child{
+    margin-right: 0;
+}
+
+.header__account{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.header__account_adaptive{
+    display: flex;
+    margin: 0 auto;
+    max-width: 100px;
+}
+.header__text{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #000;
+    margin: 0;
+    margin-right: 13px;
+}
+.header__img{
+    width: 30px;
+    height: 30px;
+    background-image: url('../../images/account-img.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #F9F9F9;
+    border-radius: 6px;
+}
+
+.header__btns {
+    max-width: 183px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__signup{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header__signup:hover{
+    opacity: 0.7;
+}
+
+.header__signin{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    box-sizing: border-box;
+    padding: 8px 20px;
+    background-color: #2BE080;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #000;
+}
+
+.header__signin:hover{
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+    .header{
+        padding: 18px 30px;
+    }
+    .header_white{
+        padding-bottom: 99px;
+    }
+    .header__link{
+        display: none;
+    } 
+    .header__account{
+        display: none;
+    } 
+}
+
+@media screen and (max-width: 470px) {
+    .header{
+        padding: 18px 14px;
+    }
+    .header_white{
+        padding-bottom: 86px;
+    }
+    .header__btns{
+        max-width: 132px;
+    }
+    .header__signup{
+        font-size: 10px;
+    }
+    .header__signin{
+        font-size: 10px;
+        padding: 5px 12px;
+    }
+}
+
+
+

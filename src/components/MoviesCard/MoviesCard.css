@@ -1,0 +1,110 @@
+.films__item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    background-color: #F9F9F9;
+}
+.films__item:last-child{
+    margin-bottom: 0;
+}
+.films__wrapper{
+    max-width: 400px;
+    width: 100%;
+    padding: 22px 0 16px 22px;
+}
+.films__info{
+    margin-bottom: 27px;
+}
+.films__title{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+    margin-bottom: 13px;
+}
+.films__time{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #A0A0A0;
+    margin: 0;
+    margin-bottom: 27px;
+}
+.films__like{
+    width: 14px;
+    height: 12px;
+    background-image: url('../../images/like.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    transition: visibility 0s, opacity 0.5s linear;
+}
+
+.films__like:hover{
+    background-image: url('../../images/like-active.svg');
+}
+.films__like_active{
+    background-image: url('../../images/like-active.svg');
+    transition: 0.5 linear;
+    visibility: visible;
+    opacity: 1;
+}
+.films__del{
+    width: 14px;
+    height: 12px;
+    background-image: url('../../images/delete-film.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: 0.5 linear;
+    border: none;
+    background-color: transparent;
+}
+.films__img{
+    width: 220px;
+    height: 122px;
+    padding: 6px 6px 6px 0px;
+}
+
+@media screen and (max-width: 768px){
+    .films__wrapper{
+        padding: 22px 0 16px 23px;
+    }
+    .films__time{
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 470px){
+    .films__item{
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .films__wrapper{
+        order: 1;
+        display: flex;
+        justify-content: space-between;
+        padding: 14px 0 13px 12px;
+        max-width: 272px;
+    }
+    .films__info{
+        margin-bottom: 0;    
+    }
+    .films__title{
+        font-size: 12px;
+        line-height: 15px;
+        margin-bottom: 8px;
+    }
+    .films__img{
+        order: 0;
+        width: 300px;
+        height: 168px;
+        padding: 0;
+    }
+}

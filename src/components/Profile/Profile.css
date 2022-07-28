@@ -1,0 +1,126 @@
+.user{
+    max-width: 410px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 4px;
+}
+.user__title{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 123px;
+}
+.user__name-input{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 17px;
+}
+.user__name-input:last-child{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: none;
+}
+.user__input{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+    border: none;
+    outline: none;
+}
+.user__form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 218px;
+}
+.user__exit-btn{
+    max-width: 140px;
+    width: 100%;
+    display: block;
+    border: none;
+    background-color: transparent;
+    color: #EE3465;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 auto;
+    cursor: pointer;
+    text-decoration: none;
+}
+.user__exit-btn:hover{
+    opacity: 0.7;
+}
+.user__change-btn{
+    max-width: 100px;
+    width: 100%;
+    display: block;
+    border: none;
+    background-color: transparent;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 0 auto;
+    margin-bottom: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+.user__change-btn:hover{
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 768px){
+    .user{
+        padding-top: 155px;
+    }
+    .user__title{
+        margin-bottom: 96px;
+    }
+    .user__form{
+        margin-bottom: 209px;
+    }
+}
+
+@media screen and (max-width: 470px){
+    .user{
+        padding-top: 2px;
+    }
+    .user__title{
+        margin-bottom: 80px;
+    }
+    .user__form{
+        max-width: 260px;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 378px;
+    }
+    .user__exit-btn{
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+    }
+    .user__change-btn{
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+}

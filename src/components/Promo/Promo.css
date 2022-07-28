@@ -1,0 +1,118 @@
+.main-page {
+    padding: 75px 70px;
+    background-color: #5C5C5C;
+}
+
+.main-page__wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 84px;
+}
+
+.main-page__title {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    color: #FFFFFF;
+    max-width: 640px;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 36px;
+}
+
+.main-page__text {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #FFFFFF;
+    opacity: 0.5;
+    max-width: 310px;
+    width: 100%;
+    margin: 0;
+}
+
+.learn-more-btn {
+    display: block;
+    max-width: 127px;
+    width: 100%;
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid #FFFFFF;
+    border-radius: 3px;
+    padding: 9px 0px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.learn-more-btn:hover{
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+    .main-page{
+        padding: 140px 70px 76px;
+    }
+    .main-page__wrapper{
+        flex-flow: wrap;
+        justify-content: center;
+        margin-bottom: 92px;
+    }
+    .main-page__title{
+        font-size: 40px;
+        line-height: 51px;
+        text-align: center;
+        margin-bottom: 22px;
+    }
+    .main-page__text{
+        max-width: 260px;
+        line-height: 15px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .main-page__info{
+        order: 1;
+    }
+    .main-page__img{
+        order: 0;
+        margin-bottom: 48px;
+    }
+    .learn-more-btn{
+        margin: 0 auto;
+        max-width: 127px;
+        padding: 8px 0;
+        line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .main-page{
+        padding: 70px 5px 30px;
+    }
+    .main-page__wrapper{
+        margin-bottom: 80px;
+    }
+    .main-page__title{
+        font-size: 30px;
+        line-height: 38px;
+        letter-spacing: -0.04em;
+        margin-bottom: 25px;
+    }
+    .main-page__img{
+        width: 210px;
+        margin-bottom: 44px;
+    }
+    .learn-more-btn{
+        max-width: 92px;
+        padding: 9px 18px;
+    }
+}

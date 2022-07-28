@@ -1,0 +1,159 @@
+.search{
+    max-width: 1140px;
+    margin: 0 auto;
+    padding-bottom: 69px;
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 80px;
+}
+.search__wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 19px;
+    background: #FDFDFD;
+    box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+    height: 72px;
+}
+.search__input-wrapper{
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #CBCBCB;
+    max-width: 894px;
+    width: 100%;
+    height: 40px;
+}
+.search__input{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 20px;
+    color: #A0A0A0;
+    background-color: #FDFDFD;
+    border: none;
+    box-sizing: border-box;
+    padding: 6px 0;
+    width: 100%;
+}
+.search__input:focus-visible {
+    outline: none;
+}
+.search__icon{
+    background-image: url('../../images/search-img.svg');
+    width: 37px;
+    height: 37px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 11px;
+}
+.search__form{
+    width: 100%;
+}
+.search__checkbox-name{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+}
+.search__checkbox-input{
+    position: absolute;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.search__checkbox-input:checked + .search__box{
+    background-image: url('../../images/ball-btn.svg');
+    background-position: center right;
+    transition: 0.5s linear;
+}
+.search__checkbox{
+    max-width: 180px;
+    width: 100%;
+}
+.search__btn{
+    background-image: url('../../images/search-btn.svg');
+    width: 37px;
+    height: 34px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #2BE080;
+    border-radius: 48px;
+    border: none;
+    cursor: pointer;
+    margin-right: 19px;
+}
+.search__box{
+    width: 36px;
+    height: 20px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(50, 50, 71, 0.08), 0px 4px 8px rgba(50, 50, 71, 0.06);
+    border-radius: 16px;
+    background-image: url('../../images/ball-btn-disabled.svg');
+    background-repeat: no-repeat;
+    background-position: center left;
+    cursor: pointer;
+    margin-right: 16px;
+    transition: 0.5s linear;
+}
+
+@media screen and (max-width: 768px){
+    .search{
+        max-width: 710px;
+        padding-bottom: 98px;
+    }
+    .search__input-wrapper{
+        max-width: 482px;
+    }
+    .search__input{
+        font-size: 14px;
+        padding: 10px 19px;
+    }
+    .search__icon{
+        margin-right: 15px;
+    }
+    .search__checkbox-name{
+        font-size: 11px;
+        line-height: 18px;
+    }
+    .search__checkbox{
+        max-width: 171px;
+    }
+}
+
+@media screen and (max-width: 470px){
+    .search{
+        max-width: 300px;
+        padding-bottom: 121px;
+        margin-bottom: 50px;
+    }
+    .search__wrapper{
+        display: block;
+        border-radius: 0;
+        box-shadow: none;
+        background-color: #fff;
+        padding: 14px 0;
+    }
+    .search__input-wrapper{
+        border: none;
+        background-color: #FDFDFD;
+        box-shadow: 0px 3px 14px rgb(0 0 0 / 8%);
+        border-radius: 9px;
+        margin-bottom: 43px;
+        height: 71px;
+    }
+    .search__icon{
+        display: none;
+    }
+    .search__checkbox{
+        margin: 0 auto;
+        max-width: 153px;
+    }
+    .search__box{
+        margin-right: 16px;
+    }
+}
