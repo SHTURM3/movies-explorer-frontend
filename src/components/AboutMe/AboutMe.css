@@ -102,12 +102,24 @@
     }
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 700px){
+    .profile__wrapper{
+        flex-flow: row-reverse;
+    }
+    .profile__info{
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
     .profile{
         padding: 75px 14px 0 14px;
     }
     .profile__wrapper{
+        display: flex;
+        text-align-last: left;
         flex-direction: column;
+        margin: 0;
         margin-top: 60px;
         margin-bottom: 70px;
     }
@@ -125,6 +137,7 @@
     }
     .profile__info{
         order: 1;
+        margin-left: 0;
     }
     .profile__desc{
         font-size: 11px;

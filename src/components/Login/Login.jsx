@@ -16,12 +16,12 @@ function Login(){
                 <form className="user-auth__form">
                     <label className="user-auth__name-input">
                         E-mail
-                        <input type="email" placeholder='Введите E-mail' className="user-auth__input user-auth__input_bold" />
+                        <input type="email" placeholder='Введите E-mail' className="user-auth__input user-auth__input_bold" required={true} />
                         <span className="validation-error"></span>
                     </label>
                     <label className="user-auth__name-input">
                         Пароль
-                        <input type="password" placeholder='Введите пароль' className="user-auth__input" />
+                        <input type="password" placeholder='Введите пароль' className="user-auth__input" required={true} />
                         <span className="validation-error">Что-то пошло не так...</span>
                     </label>
                 </form>

@@ -17,17 +17,17 @@ function Register(){
                 <form className="user-auth__form">
                     <label className="user-auth__name-input">
                         Имя
-                        <input type="text" placeholder="Введите имя" className="user-auth__input" />
+                        <input type="text" placeholder="Введите имя" className="user-auth__input" required={true} />
                         <span className="validation-error"></span>
                     </label>
                     <label className="user-auth__name-input">
                         E-mail
-                        <input type="email" placeholder='Введите E-mail' className="user-auth__input user-auth__input_bold user-auth__input_green" />
+                        <input type="email" placeholder='Введите E-mail' className="user-auth__input user-auth__input_bold user-auth__input_green" required={true} />
                         <span className="validation-error"></span>
                     </label>
                     <label className="user-auth__name-input">
                         Пароль
-                        <input type="password" placeholder='Введите пароль' className="user-auth__input user-auth__input_error" />
+                        <input type="password" placeholder='Введите пароль' className="user-auth__input user-auth__input_error" required={true} />
                         <span className="validation-error validation-error_active">Что-то пошло не так...</span>
                     </label>
                 </form>

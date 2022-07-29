@@ -31,7 +31,7 @@
     opacity: 0.7;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1150px){
     .films{
         max-width: 710px;
         padding-bottom: 90px;
@@ -41,13 +41,21 @@
     }
 }
 
+@media screen and (max-width: 720px){
+    .films__list{
+        width: 90%;
+        margin: 0 auto 81px;
+    }
+}
+
 @media screen and (max-width: 470px){
     .films{
         max-width: 300px;
         padding-bottom: 84px;
     }
     .films__list{
-        margin-bottom: 76px;
+        width: 100%;
+        margin:0 0 76px 0;
     }
     .films__btn-more{
         max-width: 240px;

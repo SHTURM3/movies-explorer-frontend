@@ -92,6 +92,7 @@
 @media screen and (max-width: 470px) {
     .technologies{
         padding: 66px 18px;
+        background-color: #fff;
     }
     .technologies__list{
         max-width: 180px;
