@@ -1,0 +1,124 @@
+.technologies{
+    padding: 102px 70px;
+    background-color: #F5F5F5;
+}
+.technologies__name{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.04em;
+    text-align: center;
+    max-width: 60px;
+    width: 100%;
+    margin: 0;
+}
+.technologies__list{
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 690px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.technologies__item{
+    max-width: 90px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 14px;
+    background-color: #E8E8E8;
+    border-radius: 10px;
+}
+.technologies-info{
+    margin-top: 90px;
+    margin-bottom: 100px;
+}
+.technologies-info__title{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -0.04em;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 26px;
+}
+.technologies-info__text{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+    text-align: center;
+    max-width: 460px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+    .technologies{
+        padding: 90px 50px;
+    }
+    .technologies__name{
+        font-size: 12px;
+        line-height: 15px;
+    }
+    .technologies__list{
+        max-width: 650px;
+    }
+    .technologies__item{
+        max-width: 85px;
+        padding: 21px 14px;
+    }
+    .technologies-info{
+        margin-top: 80px;
+        margin-bottom: 82px;
+    }
+    .technologies-info__title{
+        margin-bottom: 22px;
+    }
+    .technologies-info__text{
+        font-size: 12px;
+        line-height: 19px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .technologies{
+        padding: 66px 18px;
+        background-color: #fff;
+    }
+    .technologies__list{
+        max-width: 180px;
+        flex-wrap: wrap;    
+    }
+    .technologies__item{
+        margin-bottom: 10px;
+    }
+    .technologies__item:last-child{
+        margin-bottom: 0;
+    }
+    .technologies-info{
+        margin-top: 60px;
+        margin-bottom: 50px;
+    }
+    .technologies-info__title{
+        font-size: 30px;
+        line-height: 36px;
+        margin-bottom: 24px;
+    }
+    .technologies-info__text{
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+}
+
+
+

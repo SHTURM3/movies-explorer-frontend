@@ -1,0 +1,172 @@
+.about {
+    padding: 110px 70px 100px;
+}
+
+.about-info {
+    margin-top: 70px;
+    margin-bottom: 110px;
+}
+.about-info__list {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.about-info__item-title {
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0;
+    margin-bottom: 26px;
+}
+.about-info__item-text {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0;
+}
+.about-info__item {
+    max-width: 550px;
+    width: 100%;
+}
+
+.about-periods{
+    display: flex;
+    margin-bottom: 6px;
+}
+.about-periods__text{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+}
+.about-periods__first-block{
+    max-width: 228px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 9px 0;
+    background-color: #2BE080;
+}
+.about-periods__second-block{
+    max-width: 912px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 9px 0;
+    background-color: #F2F2F2;
+}
+
+.about-periods-names{
+    display: flex;
+}
+.about-periods-names__text{
+    font-family: 'Inter', 'Arial', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #A0A0A0;
+    margin: 0;
+}
+.about-periods-names__first-block{
+    max-width: 228px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 9px 0;
+}
+.about-periods-names__second-block{
+    max-width: 912px;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 9px 0;
+}
+
+@media screen and (max-width: 768px) {
+    .about{
+        padding: 90px 50px 82px;
+    }
+    .about-info{
+        margin-bottom: 95px;
+    }
+    .about-info__item-title{
+        margin-bottom: 20px;
+    }
+    .about-info__item-text{
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .about-info__item{
+        max-width: 319px;
+    }
+
+    .about-periods{
+        margin-bottom: 5px;
+    }
+    .about-periods__first-block{
+        max-width: 140px;
+    }
+    .about-periods-names__first-block{
+        max-width: 140px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .about{
+        padding: 70px 18px;
+    }
+    .about-info{
+        margin: 60px 0;
+    }
+    .about-info__list{
+        display: block;
+    }
+    .about-info__item-title{
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 16px;
+    }
+    .about-info__item-text{
+        font-size: 11px;
+        line-height: 16px;    
+    }
+    .about-info__item{
+        margin-bottom: 56px;
+    }
+    .about-info__item:last-child{
+        margin-bottom: 0;
+    }
+    .about-periods__text{
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .about-periods__first-block{
+        max-width: 100px;
+        padding: 11px 0;
+    }
+    .about-periods__second-block{
+        padding: 11px 0;
+    }
+    .about-periods-names__text{
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .about-periods-names__first-block{
+        max-width: 100px;
+        padding: 5px 0;
+    }
+    .about-periods-names__second-block{
+        padding: 5px 0;
+    }
+}
+
