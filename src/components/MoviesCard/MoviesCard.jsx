@@ -1,39 +1,33 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-
-import design from '../../images/design.png';
+import { Link } from "react-router-dom";
 
 import '../MoviesCard/MoviesCard.css';
 
-function MoviesCard(){
-    function isLiked(){
-        const likeBtn = document.querySelector('.films__like');
-        likeBtn.classList.toggle('films__like_active');
+function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMovieLiked, handleMovieDelete}){
+
+// Переменная для проверки сохраненного фильма
+    const like = isMovieLiked(savedMovies, movie.id);
+
+// Подгонка продолжительности фильма под формат времени 'N'ч 'NN'м
+    function translationTime(num){
+        const hour = Math.floor(num / 60);
+        const minutes = num % 60;
+        return `${hour}ч ${minutes}м`;
     }
+
     return(
-    <>
-        <li className="films__item">
-            <div className="films__wrapper">
-                <div className="films__info">
-                    <h2 className="films__title">
-                        33 слова о дизайне
-                    </h2>
-                    <p className="films__time">
-                        1ч 42м
-                    </p>    
+            <li className="films__item">
+                <div className="films__wrapper">
+                    <div className="films__info">
+                        <h2 className="films__title">{nameRU}</h2>
+                        <p className="films__time">{translationTime(duration)}</p>    
+                    </div>
+                    <button type="button" onClick={() => saveMovie(movie)} className={`films__like ${like ? 'films__like_active' : ''}`}></button>    
                 </div>
-                <Switch>
-                    <Route path="/movies">
-                        <button type="button" onClick={() => isLiked()} className='films__like'></button>    
-                    </Route>
-                    <Route path="/saved-movies">
-                        <button type="button" className="films__del"></button>    
-                    </Route>    
-                </Switch>
-            </div>
-            <img src={design} alt="33 слова о дизайне" className="films__img" />
-        </li>
-    </>
+                <a href={movie.trailerLink}>
+                    <img src={`https://api.nomoreparties.co${img}`} alt={nameRU} className="films__img" />
+                </a>
+            </li>    
     );
 }
 
