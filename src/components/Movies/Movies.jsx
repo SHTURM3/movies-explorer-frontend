@@ -87,15 +87,10 @@ function Movies({savedMovies, setSavedMovies, handleMovieDelete, isMovieLiked}){
             return movie.nameRU.toLowerCase().includes(searchValue);
         });
         
-        
-        if(filterBySearch === []){
+        if(filterBySearch.length === 0){
             setError('Ничего не найдено');
             return;
-        } else if(searchValue === ''){
-            setError('Нужно ввести ключевое слово');
-            localStorage.removeItem('filterMovies');
-            return;
-        } else{
+        } else {
             if(checkbox){
                 const filteredByDuration = filterBySearch.filter((movie) => {
                     return movie.duration <= 40;
@@ -105,15 +100,16 @@ function Movies({savedMovies, setSavedMovies, handleMovieDelete, isMovieLiked}){
             } else{
                 setMovies(filterBySearch);
                 localStorage.setItem('filterMovies', JSON.stringify(filterBySearch)); 
-            };  
+            };    
         };
     };
 
     function handleSubmit(event){
         event.preventDefault();
-        
+
         if(searchValue === null){
             setError('Нужно ввести ключевое слово');
+            return;
         } else {
             setError('');
             localStorage.setItem('searchValue', searchValue);
@@ -134,6 +130,7 @@ function Movies({savedMovies, setSavedMovies, handleMovieDelete, isMovieLiked}){
     useEffect(() => {
         const localMovies = localStorage.getItem('filterMovies');
         const localMoviesParse = JSON.parse(localMovies);
+
         if(localMoviesParse){
             setMovies(localMoviesParse); 
             setPreloader(false);    
@@ -168,7 +165,6 @@ function Movies({savedMovies, setSavedMovies, handleMovieDelete, isMovieLiked}){
                 saveMovie={saveMovie}
                 savedMovies={savedMovies}
                 isMovieLiked={isMovieLiked}
-                handleMovieDelete={handleMovieDelete}
             />
 
             }

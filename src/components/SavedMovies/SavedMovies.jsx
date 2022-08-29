@@ -40,12 +40,8 @@ function SavedMovies({ savedMovies, handleMovieDelete, setSavedMovies}){
         return movie.nameRU.toLowerCase().includes(searchValue);
     });
     
-    if(filterBySearch === []){
+    if(filterBySearch.length === 0){
         setError('Ничего не найдено');
-        return;
-    } else if(searchValue === ''){
-        setError('Нужно ввести ключевое слово');
-        localStorage.removeItem('filterSavedMovies');
         return;
     } else{
         if(checkbox){

@@ -16,7 +16,6 @@ function FilterCheckbox({setCheckbox, locationMovies, locationSavedMovies}){
             const localCheckbox = localStorage.getItem('checkbox');
             const localCheckboxParse = JSON.parse(localCheckbox);
 
-            console.log(localCheckboxParse);
             if(localCheckboxParse === null){
                 return;
             } else if(localCheckboxParse === true){

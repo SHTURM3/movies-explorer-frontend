@@ -53,6 +53,9 @@ function App() {
     localStorage.removeItem('checkbox');
     localStorage.removeItem('filterMovies');
     localStorage.removeItem('searchValue');
+    localStorage.removeItem('savedMovies');
+    localStorage.removeItem('searchValueSavedMovies');
+    localStorage.removeItem('checkboxSavedMovies');
     setLoggedIn(false);
     history.push("/");
   }

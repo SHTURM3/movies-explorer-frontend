@@ -1,12 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import '../MoviesCard/MoviesCard.css';
 
-function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMovieLiked, handleMovieDelete}){
+function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMovieLiked}){
+
+    const [likes, setLikes] = useState(false);
+
+    function handleLike(){
+        const like = isMovieLiked(savedMovies, movie.id);
+        if(like){
+            setLikes(true); 
+        } else {
+            setLikes(false);
+        };  
+    };
 
 // Переменная для проверки сохраненного фильма
-    const like = isMovieLiked(savedMovies, movie.id);
+    
 
 // Подгонка продолжительности фильма под формат времени 'N'ч 'NN'м
     function translationTime(num){
@@ -15,6 +26,10 @@ function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMov
         return `${hour}ч ${minutes}м`;
     }
 
+    useEffect(() => {
+        handleLike();        
+    }, [likes]);
+
     return(
             <li className="films__item">
                 <div className="films__wrapper">
@@ -22,7 +37,7 @@ function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMov
                         <h2 className="films__title">{nameRU}</h2>
                         <p className="films__time">{translationTime(duration)}</p>    
                     </div>
-                    <button type="button" onClick={() => saveMovie(movie)} className={`films__like ${like ? 'films__like_active' : ''}`}></button>    
+                    <button type="button" onClick={() => saveMovie(movie)} className={`films__like ${likes ? 'films__like_active' : ''}`}></button>    
                 </div>
                 <a href={movie.trailerLink}>
                     <img src={`https://api.nomoreparties.co${img}`} alt={nameRU} className="films__img" />

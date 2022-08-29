@@ -3,3 +3,6 @@
   
 # Ссылка на pull-request
 https://github.com/SHTURM3/movies-explorer-frontend/pull/2
+
+# Домен
+https://movies.vizetann.nomoredomains.sbs/

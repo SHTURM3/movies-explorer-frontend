@@ -97,6 +97,10 @@ function Profile({setCurrentUser, handleSignOut}){
         }
     }, [handleSubmit]);
 
+    useEffect(() => {
+        setDisabled(true);
+    }, []);
+
     return(
         <section className="user">
                 <div className="user__wrapper">
