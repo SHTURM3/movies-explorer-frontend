@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import * as auth from '../../utils/auth';
@@ -12,27 +12,35 @@ function Login({setLoggedIn}){
 
     const { values, handleChange, errors, isValid } = useFormWithValidation();
 
+    const [serverError, setServerError] = useState('');
 
     const history = useHistory();
 
 
 //Авторизация пользователя
-    function handleLogin(email,password){
-        return auth
-        .authorize(email,password)
-        .then((data) => {
-            console.log(data);
-            if(!data.token){
-            console.log('Проблема с токеном');
-            }
+function handleLogin(email,password){
+    return auth.authorize(email,password)
+    .then((data) => {
+        if(!data.token){
+            setServerError('Токен передан неккоректно');
+        } else if(!data){
+            setServerError('Такого пользователя не существует');
+        } else{
             localStorage.setItem('jwt', data.token);
             setLoggedIn(true);
-            history.push('/movies');
-        })
-        .catch((err) => {
-            console.log('ErrorLog: ', err);
-        })
-    };
+            history.push('/movies');    
+        };
+    })
+    .catch((err) => {
+        if(err.statusCode === 401){
+            setServerError('Логин и пароль не верны');
+        } else if(err.statusCode === 500) {
+            setServerError('Сервер не отвечает');
+        } else {
+            setServerError('При авторизации пользователя произошла ошибка');
+        }
+    })
+};
 
 //Отправка формы    
     function handleSubmit(e){
@@ -42,9 +50,6 @@ function Login({setLoggedIn}){
         }
 
         handleLogin(values.email, values.password)
-            .catch((err) => {
-                console.log(err);
-            })
     };
 
     return(
@@ -103,6 +108,7 @@ function Login({setLoggedIn}){
                         </span>    
                     </label>
                 </form>
+                <span className="server">{serverError}</span>
                 <button form="login" type="submit" className={`user-auth__btn ${isValid ? '' : 'user-auth__btn_disabled'}`} disabled={isValid ? false : true}>Войти</button>
                 <div className="user-auth__link-wrapper">
                     <p className="user-auth__link-text">

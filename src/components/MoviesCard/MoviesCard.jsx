@@ -1,35 +1,25 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+//import { useState, useEffect } from "react";
 
 import '../MoviesCard/MoviesCard.css';
 
-function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMovieLiked}){
-
-    const [likes, setLikes] = useState(false);
-
-    function handleLike(){
-        const like = isMovieLiked(savedMovies, movie.id);
-        if(like){
-            setLikes(true); 
-        } else {
-            setLikes(false);
-        };  
-    };
-
-// Переменная для проверки сохраненного фильма
-    
+function MoviesCard({movie, nameRU, duration, img, savedMovies, saveMovie, isMovieLike}){
 
 // Подгонка продолжительности фильма под формат времени 'N'ч 'NN'м
     function translationTime(num){
         const hour = Math.floor(num / 60);
         const minutes = num % 60;
         return `${hour}ч ${minutes}м`;
-    }
+    };
 
+    const iD = movie.id
+    
     useEffect(() => {
-        handleLike();        
-    }, [likes]);
+        isMovieLike(savedMovies, iD);
+    })
 
+    
     return(
             <li className="films__item">
                 <div className="films__wrapper">
@@ -37,9 +27,9 @@ function MoviesCard({movie, nameRU, duration, img, saveMovie, savedMovies, isMov
                         <h2 className="films__title">{nameRU}</h2>
                         <p className="films__time">{translationTime(duration)}</p>    
                     </div>
-                    <button type="button" onClick={() => saveMovie(movie)} className={`films__like ${likes ? 'films__like_active' : ''}`}></button>    
+                    <button type="button" onClick={() => saveMovie(movie)} className={`films__like ${isMovieLike(savedMovies, iD) ? 'films__like_active' : ''}`}></button>    
                 </div>
-                <a href={movie.trailerLink}>
+                <a href={movie.trailerLink} target='_blank' rel="noreferrer">
                     <img src={`https://api.nomoreparties.co${img}`} alt={nameRU} className="films__img" />
                 </a>
             </li>    

@@ -8,7 +8,7 @@ import { useFormWithValidation } from "../../utils/formValidation";
 import logo from '../../images/logo.svg'
 import '../Register/Register.css';
 
-function Register(){
+function Register({setLoggedIn}){
 
 //Стейт с ошибками регистрации
     const [registerError, setRegisterError] = useState('');
@@ -17,24 +17,57 @@ function Register(){
 
     const history = useHistory();
 
+//Авторизация пользователся(в данной компоннте требуется для случая если регистрация пользователя прошла успешно)
+function handleLogin(email,password){
+    return auth.authorize(email,password)
+    .then((data) => {
+        if(!data.token){
+            setRegisterError('Токен передан неккоректно');
+        } else if(!data){
+            setRegisterError('Такого пользователя не существует');
+        } else{
+            localStorage.setItem('jwt', data.token);
+            setLoggedIn(true);
+            history.push('/movies');    
+        };
+    })
+    .catch((err) => {
+        if(err.statusCode === 401){
+            setRegisterError('Логин и пароль не верны');
+        } else if(err.statusCode === 500) {
+            setRegisterError('Сервер не отвечает');
+        } else {
+            setRegisterError('При авторизации пользователя произошла ошибка');
+        }
+    })
+};
   
 //Регистрация пользователя
     function handleRegister (name, email, password) {
+        localStorage.setItem('userInfo', JSON.stringify({name, email, password}));
         return auth.register(name, email, password)
         .then((data) => {
-            console.log(data);
-            history.push("/signin");
+            if(data){
+                const localUserInfo = localStorage.getItem('userInfo');
+                const localUserParse = JSON.parse(localUserInfo);
+                console.log(localUserParse);
+                handleLogin(localUserParse.email, localUserParse.password);
+            } else{
+                setRegisterError('Проверьте правильность введенных данных')
+            };
         })
         .catch((err) => {
             if (err.statusCode === 409) {
                 setRegisterError('Пользователь с таким email уже существует');
-            } else if(err.statusCode === 500) {
+            } else if(err.code === 11000){
+                setRegisterError('Такой пользователь уже существует');
+            }else if(err.statusCode === 500) {
                 setRegisterError('Сервер не отвечает');
             } else {
                 setRegisterError('При регистрации пользователя произошла ошибка');
             }    
         })
-    }
+    };
     
     
 //Отправка формы
@@ -97,7 +130,7 @@ function Register(){
                             name="email" 
                             value={values.email || ''} 
                             onChange={handleChange}
-                            pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+                            pattern='([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})'
                             placeholder='Введите E-mail' 
                             className={`user-auth__input ${errors.email ? 'user-auth__input_error' : 'user-auth__input_green'}`} 
                             autoComplete="off" 

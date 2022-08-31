@@ -4,7 +4,7 @@ import MoviesCard from "../MoviesCard/MoviesCard";
 
 import "../MoviesCardList/MoviesCardList.css";
 
-function MoviesCardList({movies, visibleMovies, handleLoadMore, saveMovie, likes, savedMovies, isMovieLiked}){
+function MoviesCardList({movies, savedMovies, visibleMovies, handleLoadMore, saveMovie, isMovieLike}){
     
     return(
         <section className="films">
@@ -16,10 +16,9 @@ function MoviesCardList({movies, visibleMovies, handleLoadMore, saveMovie, likes
                         nameRU={movie.nameRU}
                         duration={movie.duration}
                         img={movie.image.url}
-                        saveMovie={saveMovie}
-                        likes={likes}
                         savedMovies={savedMovies}
-                        isMovieLiked={isMovieLiked}
+                        saveMovie={saveMovie}
+                        isMovieLike={isMovieLike}
                     />      
                 ))}
             </ul>

@@ -40,32 +40,22 @@ function App() {
 //Удаление карточки
   function handleMovieDelete(id) {
     api.deleteMovie(id)
-      .then((movie) => {setSavedMovies((state) => state.filter((m) => m.id === m.movieId ? movie.remove() : m ))})
+      .then((movie) => {
+        if(movie){
+          setSavedMovies((state) => state.filter((m) => m.id === m.movieId ? movie.remove() : m ));  
+        } else {
+          return;
+        }
+      })
       .catch(err => console.log(err));
-  }
+  };
 
 //Выйти из профиля  
   function handleSignOut () {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('email');
-    localStorage.removeItem('name');
-    localStorage.removeItem('movies');
-    localStorage.removeItem('checkbox');
-    localStorage.removeItem('filterMovies');
-    localStorage.removeItem('searchValue');
-    localStorage.removeItem('savedMovies');
-    localStorage.removeItem('searchValueSavedMovies');
-    localStorage.removeItem('checkboxSavedMovies');
+    localStorage.clear();
     setLoggedIn(false);
     history.push("/");
-  }
-
-//Проверка на наличие лайка в фильме
-    function isMovieLiked(movies, id){
-      return movies.find((item) => {
-        return item.movieId === id;
-      });
-    }
+  };
   
 //Проверка токена
     function checkToken() {
@@ -89,8 +79,10 @@ function App() {
     if(loggedIn) {
       api.getProfile()
       .then(res => {
-        setCurrentUser(res);
-        history.goForward("/movies");
+        if(res){
+          setCurrentUser(res);
+          history.push('/movies')  
+        }
       })
       .catch( res => {
           console.log(res);
@@ -113,17 +105,14 @@ function App() {
                   savedMovies={savedMovies}
                   setSavedMovies={setSavedMovies}
                   handleMovieDelete={handleMovieDelete}
-                  isMovieLiked={isMovieLiked}
                 />
               </ProtectedRoute> 
 
               <ProtectedRoute loggedIn={loggedIn} path="/saved-movies">
                 <SavedMovies
-                  loggedIn={loggedIn}
                   savedMovies={savedMovies}
                   setSavedMovies={setSavedMovies} 
                   handleMovieDelete={handleMovieDelete}
-                  currentUser={currentUser}
                 />
               </ProtectedRoute>
 
@@ -136,7 +125,9 @@ function App() {
               </Route>
 
               <Route path="/signup">
-                <Register />
+                <Register 
+                  setLoggedIn={setLoggedIn}
+                />
               </Route>
 
               <Route path="/signin">

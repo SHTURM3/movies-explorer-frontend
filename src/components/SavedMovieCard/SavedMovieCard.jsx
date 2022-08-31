@@ -19,7 +19,7 @@ function SavedMovieCard({film, nameRU, duration, img, handleMovieDelete}){
                     </div>
                     <button type="button" onClick={() => handleMovieDelete(film._id)} className="films__del"></button>     
                 </div>
-                <a href={film.trailerLink}>
+                <a href={film.trailerLink} target='_blank' rel="noreferrer">
                     <img src={`${img}`} alt="Фильм" className="films__img" />
                 </a>
             </li>    

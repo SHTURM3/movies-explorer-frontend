@@ -9,7 +9,7 @@ import SavedMoviesCardList from "../SavedMoviesList/SavedMoviesList";
 
 import '../Movies/Movies.css';
 
-function SavedMovies({ savedMovies, handleMovieDelete, setSavedMovies}){
+function SavedMovies({ savedMovies, setSavedMovies, handleMovieDelete }){
 
 //Используется для отображения информации компонента с поиском фильмов согласно страницам, где он находится
   const location = useLocation();
@@ -23,11 +23,13 @@ function SavedMovies({ savedMovies, handleMovieDelete, setSavedMovies}){
 //Стейт переменная ошибок
   const [error, setError] = useState('');
 
+  console.log(searchValue);
+
 //Запрос фильмов с сервера
   function getSavedMovies(){
     api.getMovies()
     .then(res => {
-        setSavedMovies(res);
+      setSavedMovies(res);
     })
     .catch((err) => {
         console.log(err);
@@ -49,27 +51,26 @@ function SavedMovies({ savedMovies, handleMovieDelete, setSavedMovies}){
                 return movie.duration <= 40;
             });
             setSavedMovies(filteredByDuration);
-            localStorage.setItem('filterSavedMovies', JSON.stringify(filteredByDuration));
         } else{
             setSavedMovies(filterBySearch);
-            localStorage.setItem('filterSavedMovies', JSON.stringify(filterBySearch)); 
         };  
     };
   };
 
   function handleSubmit(event){
     event.preventDefault();
+
+    setSavedMovies([]);
     
-    if(searchValue === null){
+    if(searchValue === ''){
         setError('Нужно ввести ключевое слово');
     } else {
         setError('');
-        localStorage.setItem('searchValueSavedMovies', searchValue);
-        localStorage.setItem('checkboxSavedMovies', checkbox);
         api.getMovies()
             .then(movies => {
-                sortMovies(movies);
-                localStorage.setItem('savedMovies', JSON.stringify(movies));
+              if(movies){
+                sortMovies(movies);  
+              } 
             })
             .catch(() => {
                 setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
@@ -77,16 +78,7 @@ function SavedMovies({ savedMovies, handleMovieDelete, setSavedMovies}){
     };
 };
 
-
-  useEffect(() => {
-    const localMovies = localStorage.getItem('filterSavedMovies');
-        const localMoviesParse = JSON.parse(localMovies);
-        if(localMoviesParse){
-            setSavedMovies(localMoviesParse);     
-        } else{
-          getSavedMovies();
-        }
-  }, []);
+  useEffect(() => { getSavedMovies() }, [] );
 
     return(
         <>

@@ -1,7 +1,7 @@
 export function getMoreFilms(width){
-    if(width >= 1280){
+    if(width >= 768){
         return 7;
-    }else {
+    }else if(width <= 470){
         return 5;    
     } 
 };

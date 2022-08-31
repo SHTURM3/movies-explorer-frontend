@@ -25,20 +25,6 @@ function FilterCheckbox({setCheckbox, locationMovies, locationSavedMovies}){
                 const input = document.getElementById('checkbox');
                 input.checked = false;
             }    
-        } else if(locationSavedMovies){
-            const localCheckbox = localStorage.getItem('checkboxSavedMovies');
-            const localCheckboxParse = JSON.parse(localCheckbox);
-
-            console.log(localCheckboxParse);
-            if(localCheckboxParse === null){
-                return;
-            } else if(localCheckboxParse === true){
-                const input = document.getElementById('checkbox');
-                input.checked = true;
-            } else{
-                const input = document.getElementById('checkbox');
-                input.checked = false;
-            }    
         }
     }, []);
 

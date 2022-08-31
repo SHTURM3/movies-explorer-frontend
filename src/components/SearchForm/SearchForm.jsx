@@ -18,14 +18,9 @@ function SearchForm({handleSubmit, setSearchValue, setCheckbox, locationMovies, 
             }
             setSearchValue(value);    
         } else if(locationSavedMovies){
-            const localValue = localStorage.getItem('searchValueSavedMovies');
             const value = event.target.value.toLowerCase();
-            if(localValue){
-                setSearchValue(localValue);
-            }
-            setSearchValue(value);
+            setSearchValue(value); 
         }
-        
     };
 
 //Отображение ранее введенной информации при монтировании компонента
@@ -39,15 +34,6 @@ function SearchForm({handleSubmit, setSearchValue, setCheckbox, locationMovies, 
                 const input = document.getElementById('search');
                 input.value = localValue;
             }    
-        } else if(locationSavedMovies){
-            const localValue = localStorage.getItem('searchValueSavedMovies');
-            
-            if(localValue === null){
-                return;
-            } else{
-                const input = document.getElementById('search');
-                input.value = localValue;
-            } 
         }
     }, []);
 
