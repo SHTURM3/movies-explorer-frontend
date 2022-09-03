@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, {useState} from "react";
+import { Link } from "react-router-dom";
 
 import * as auth from '../../utils/auth';
+
+import { regExpEmail } from "../../utils/constants";
 
 import { useFormWithValidation } from "../../utils/formValidation";
 
@@ -14,21 +16,16 @@ function Login({setLoggedIn}){
 
     const [serverError, setServerError] = useState('');
 
-    const history = useHistory();
-
-
 //Авторизация пользователя
 function handleLogin(email,password){
     return auth.authorize(email,password)
     .then((data) => {
         if(!data.token){
             setServerError('Токен передан неккоректно');
-        } else if(!data){
-            setServerError('Такого пользователя не существует');
+            return;
         } else{
             localStorage.setItem('jwt', data.token);
-            setLoggedIn(true);
-            history.push('/movies');    
+            setLoggedIn(true);    
         };
     })
     .catch((err) => {
@@ -71,7 +68,7 @@ function handleLogin(email,password){
                             id="email" 
                             value={values.email || ''} 
                             onChange={handleChange}
-                            pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})" 
+                            pattern={regExpEmail} 
                             placeholder='Введите E-mail' 
                             className={`user-auth__input ${errors.email ? 'user-auth__input_error' : 'user-auth__input_green'}`}
                             autoComplete="off" 

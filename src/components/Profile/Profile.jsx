@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+
 import api from "../../utils/MainApi";
+
+import { regExpEmail, regExpName } from "../../utils/constants";
 
 import '../Profile/Profile.css';
 
@@ -118,7 +121,7 @@ function Profile({setCurrentUser, handleSignOut}){
                                 onChange={handleNameChange}
                                 minLength='2' 
                                 maxLength='40'
-                                pattern="^[A-Za-zА-Яа-яЁё\s-]+$" 
+                                pattern={regExpName} 
                                 value={userName} 
                                 placeholder='Введите имя' 
                                 className="user__input"
@@ -136,7 +139,7 @@ function Profile({setCurrentUser, handleSignOut}){
                                 name="userEmail" 
                                 onChange={handleEmailChange} 
                                 value={userEmail} 
-                                pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
+                                pattern={regExpEmail}
                                 placeholder='Введите E-mail' 
                                 className="user__input"
                                 autoComplete="off"

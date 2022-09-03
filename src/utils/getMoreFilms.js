@@ -1,7 +1,8 @@
+import { moviesQuantityOnDesktop, moviesQuantityOnMobile} from "./constants";
+
 export function getMoreFilms(width){
-    if(width >= 768){
-        return 7;
-    }else if(width <= 470){
-        return 5;    
-    } 
+    if(width > 500){
+        return moviesQuantityOnDesktop;
+    }
+    return moviesQuantityOnMobile;
 };

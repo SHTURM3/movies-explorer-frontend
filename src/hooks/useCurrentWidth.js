@@ -1,13 +1,13 @@
 import {useState, useEffect} from 'react';
 
-function useCurrentWidth(){
+export const useCurrentWidth = () => {
     
     const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         let timeoutId = null;
     
-        function resizeListener(){
+        const resizeListener = () => {
           clearTimeout(timeoutId);
           timeoutId = setTimeout(() => setWidth(window.innerWidth), 150);
         }
@@ -16,10 +16,8 @@ function useCurrentWidth(){
     
         return () => {
           window.removeEventListener('resize', resizeListener);
-        }
+        };
       }, []);
 
-      return width;
-}
-
-export default useCurrentWidth;
+    return width;
+};

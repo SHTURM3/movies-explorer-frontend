@@ -58,6 +58,8 @@ export const getContent = (token) => {
             console.log('Токен не передан или передан не в том формате.')
         } else if(err.statusCode === 401) {
             console.log('Переданный токен неккоректен.')
+        } else{
+          console.log(err);
         }
     })
   }

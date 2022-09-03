@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
+
 import * as auth from '../../utils/auth';
+
+import { regExpEmail, regExpName } from "../../utils/constants";
 
 import { useFormWithValidation } from "../../utils/formValidation";
 
@@ -86,7 +88,6 @@ function handleLogin(email,password){
           });
       }
 
-
     return(
         <section className="user-auth">
             <Link exact to='/'>
@@ -108,7 +109,7 @@ function handleLogin(email,password){
                             onChange={handleChange} 
                             minLength='2' 
                             maxLength='40'
-                            pattern="^[A-Za-zА-Яа-яЁё\s-]+$"
+                            pattern={regExpName}
                             placeholder="Введите имя" 
                             className={`user-auth__input ${errors.name ? 'user-auth__input_error' : 'user-auth__input_green'}`}
                             autoComplete="off" 
@@ -130,7 +131,7 @@ function handleLogin(email,password){
                             name="email" 
                             value={values.email || ''} 
                             onChange={handleChange}
-                            pattern='([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})'
+                            pattern={regExpEmail}
                             placeholder='Введите E-mail' 
                             className={`user-auth__input ${errors.email ? 'user-auth__input_error' : 'user-auth__input_green'}`} 
                             autoComplete="off" 

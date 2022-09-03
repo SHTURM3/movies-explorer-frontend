@@ -35,14 +35,27 @@ function App() {
   const [currentUser, setCurrentUser ] = useState({});
 
 //Стейт-переменная сохраненных фильмов (фильмы из MainApi)
-  const [savedMovies, setSavedMovies] = useState([]);
-    
+  const [addMovies, setAddMovies] = useState([]);
+
+  function getSavedMovies(){
+    api.getMovies()
+        .then(res => {
+          if(res) {
+            setAddMovies(res);
+          }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+  }
+
 //Удаление карточки
   function handleMovieDelete(id) {
     api.deleteMovie(id)
       .then((movie) => {
         if(movie){
-          setSavedMovies((state) => state.filter((m) => m.id === m.movieId ? movie.remove() : m ));  
+          setAddMovies((state) => state.filter((m) => m.id === m.movieId ? movie.remove() : m ));
+          getSavedMovies(); 
         } else {
           return;
         }
@@ -67,29 +80,36 @@ function App() {
               setLoggedIn(true);
             }
           })
+          .catch((err) => {
+            console.log(err);
+            history.push('/signin'); //если токен передан неккоректно, то запрос auth.getContent не вернет объект с данными пользователя
+            console.log('Данные переданы некорректно');
+          })
       };
     };
 
 //Запросы данных пользователя и проверка токена
   useEffect(() => {
     checkToken();
-  }, [loggedIn, history]);
+  }, []);
 
   useEffect(() => {
     if(loggedIn) {
+
       api.getProfile()
       .then(res => {
         if(res){
           setCurrentUser(res);
-          history.push('/movies')  
+          history.push('/movies'); 
         }
       })
-      .catch( res => {
+      .catch((res) => {
           console.log(res);
       })
-      return;
+
+
     }
-  }, [loggedIn, history, setCurrentUser]);
+  }, [history, loggedIn]);
 
   return (
     <div className="App">
@@ -100,26 +120,6 @@ function App() {
           
           <main className="content">
             <Switch>
-              <ProtectedRoute loggedIn={loggedIn} path="/movies">
-                <Movies
-                  savedMovies={savedMovies}
-                  setSavedMovies={setSavedMovies}
-                  handleMovieDelete={handleMovieDelete}
-                />
-              </ProtectedRoute> 
-
-              <ProtectedRoute loggedIn={loggedIn} path="/saved-movies">
-                <SavedMovies
-                  savedMovies={savedMovies}
-                  setSavedMovies={setSavedMovies} 
-                  handleMovieDelete={handleMovieDelete}
-                />
-              </ProtectedRoute>
-
-              <ProtectedRoute loggedIn={loggedIn} path="/profile">
-                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
-              </ProtectedRoute>
-
               <Route exact path="/">
                 <Main />
               </Route>
@@ -137,6 +137,26 @@ function App() {
                   setCurrentUser={setCurrentUser}
                 />
               </Route>
+
+              <ProtectedRoute path="/movies" loggedIn={loggedIn} >
+                <Movies
+                  addMovies={addMovies}
+                  setAddMovies={setAddMovies}
+                  handleMovieDelete={handleMovieDelete}
+                />
+              </ProtectedRoute> 
+
+              <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} >
+                <SavedMovies
+                  addMovies={addMovies}
+                  setAddMovies={setAddMovies} 
+                  handleMovieDelete={handleMovieDelete}
+                />
+              </ProtectedRoute>
+
+              <ProtectedRoute path="/profile" loggedIn={loggedIn} >
+                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
+              </ProtectedRoute>
 
               <Route path='*'>
                 <PageNotFound />

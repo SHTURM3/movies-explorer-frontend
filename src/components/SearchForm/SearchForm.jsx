@@ -10,32 +10,24 @@ function SearchForm({handleSubmit, setSearchValue, setCheckbox, locationMovies, 
 
 //Управление поиском фильмов
     function handleChange(event){
-        if(locationMovies){
-            const localValue = localStorage.getItem('searchValue');
-            const value = event.target.value.toLowerCase();
-            if(localValue){
-                setSearchValue(localValue);
-            }
-            setSearchValue(value);    
-        } else if(locationSavedMovies){
-            const value = event.target.value.toLowerCase();
-            setSearchValue(value); 
-        }
+        const value = event.target.value.toLowerCase();
+        setSearchValue(value);    
     };
 
 //Отображение ранее введенной информации при монтировании компонента
     useEffect(() => {
         if(locationMovies){
             const localValue = localStorage.getItem('searchValue');
-            
-            if(localValue === null){
+
+            if(localValue === ''){
                 return;
             } else{
                 const input = document.getElementById('search');
                 input.value = localValue;
+                setSearchValue(localValue);
             }    
         }
-    }, []);
+    }, [locationMovies, setSearchValue]);
 
     return(
         <section className="search">

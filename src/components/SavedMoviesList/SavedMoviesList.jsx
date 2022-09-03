@@ -4,12 +4,12 @@ import SavedMovieCard from "../SavedMovieCard/SavedMovieCard";
 
 import "../MoviesCardList/MoviesCardList.css";
 
-function SavedMoviesCardList({savedMovies, handleMovieDelete}){
+function SavedMoviesCardList({addMovies, handleMovieDelete}){
     
     return(
         <section className="films">
             <ul className="films__list">
-                {savedMovies.map((movie) => (
+                {addMovies.map((movie) => (
                     <SavedMovieCard
                         key={movie.movieId}
                         film={movie}

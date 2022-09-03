@@ -26,7 +26,7 @@ function FilterCheckbox({setCheckbox, locationMovies, locationSavedMovies}){
                 input.checked = false;
             }    
         }
-    }, []);
+    }, [locationMovies]);
 
     return(
         <div className="search__checkbox"> 
