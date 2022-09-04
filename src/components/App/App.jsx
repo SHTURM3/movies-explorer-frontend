@@ -42,7 +42,7 @@ function App() {
         .then(res => {
           if(res) {
             setAddMovies(res);
-          }
+          } 
         })
         .catch((err) => {
             console.log(err);
@@ -83,19 +83,12 @@ function App() {
           .catch((err) => {
             console.log(err);
             history.push('/signin'); //если токен передан неккоректно, то запрос auth.getContent не вернет объект с данными пользователя
-            console.log('Данные переданы некорректно');
           })
       };
     };
 
-//Запросы данных пользователя и проверка токена
-  useEffect(() => {
-    checkToken();
-  }, []);
-
-  useEffect(() => {
-    if(loggedIn) {
-
+//Запрос данных пользователя
+    function getUserInfo(){
       api.getProfile()
       .then(res => {
         if(res){
@@ -106,8 +99,18 @@ function App() {
       .catch((res) => {
           console.log(res);
       })
+    }
 
+//Запросы данных пользователя и проверка токена
+  useEffect(() => {
+    checkToken();
+  }, []);
 
+  useEffect(() => {
+    if(loggedIn) {
+      getUserInfo();
+    } else{
+      history.push("/");
     }
   }, [history, loggedIn]);
 
@@ -151,6 +154,8 @@ function App() {
                   addMovies={addMovies}
                   setAddMovies={setAddMovies} 
                   handleMovieDelete={handleMovieDelete}
+                  currentUser={currentUser}
+                  getSavedMovies={getSavedMovies}
                 />
               </ProtectedRoute>
 

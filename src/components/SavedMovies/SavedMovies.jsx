@@ -9,7 +9,7 @@ import SavedMoviesCardList from "../SavedMoviesList/SavedMoviesList";
 
 import '../Movies/Movies.css';
 
-function SavedMovies({ addMovies, setAddMovies, handleMovieDelete }){
+function SavedMovies({ addMovies, setAddMovies, handleMovieDelete, getSavedMovies }){
 
 //Используется для отображения информации компонента с поиском фильмов согласно страницам, где он находится
   const location = useLocation();
@@ -50,6 +50,7 @@ function SavedMovies({ addMovies, setAddMovies, handleMovieDelete }){
     };
   };
 
+//Отправка формы поиска фильмов
   function handleSubmit(event){
     event.preventDefault();
 
@@ -59,36 +60,36 @@ function SavedMovies({ addMovies, setAddMovies, handleMovieDelete }){
         setError('Нужно ввести ключевое слово');
     } else {
         setError('');
-        api.getMovies()
-          .then(movies => {
-            if(movies){
-              sortMovies(movies);  
-            } 
-          })
-          .catch(() => {
-              setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-          })
+        if(addMovies === []){
+          setError('Вы ещё не сохранили ни одного фильма');
+        } else{
+          sortMovies(addMovies);
+        }
     };
-};
+  };
 
   useEffect(() => {
-    if(addMovies.length === 0){
-      return;
-    } else {
-      api.getMovies()
-        .then(res => {
-          if(res) {
-            setAddMovies(res);
-          } else {
-            setError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз')
-          }
-        })
-        .catch((err) => {
-            console.log(err);
-        })  
-    }
-    
-  }, [addMovies.length, setAddMovies]);
+    getSavedMovies();
+  }, []);
+
+  console.log(checkbox);
+
+  useEffect(() => {
+    if(checkbox){
+      const filteredByDuration = addMovies.filter((movie) => {
+          return movie.duration <= shortMovieDuration;
+      });
+
+      if(filteredByDuration.length === 0){
+          setError('Ничего не найдено');
+          return; 
+      } else{
+          setAddMovies(filteredByDuration);
+      }
+  } else{
+      getSavedMovies();
+  }
+}, [checkbox])
 
     return(
         <>

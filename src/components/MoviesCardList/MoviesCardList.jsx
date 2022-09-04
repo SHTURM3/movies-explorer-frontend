@@ -38,7 +38,7 @@ function MoviesCardList({movies, addMovies, saveMovie, handleMovieDelete}){
     useEffect(() => {
         setVisibleMovies(getMoreFilms(width));
     }, [width]);
- 
+
     return(
         <section className="films">
             <ul className="films__list">

@@ -112,7 +112,7 @@ function Movies({addMovies, setAddMovies, handleMovieDelete}){
 
             localStorage.setItem('searchValue', searchValue); //сохраняем результат поиска фильмов в localStorage
 
-            localStorage.setItem('checkbox', checkbox); //сохраняем состояние чекбокса в localStorage
+            localStorage.setItem('checkbox', checkbox); //сохраняем состояние чекбокса в localStorage при отправки формы
 
             if(JSON.parse(localStorage.getItem('movies'))){
                 setPreloader(false);
@@ -145,6 +145,34 @@ function Movies({addMovies, setAddMovies, handleMovieDelete}){
             setError('Начните первый поиск нужных вам фильмов');
         }   
     }, []);
+
+    useEffect(() => {
+        const localMovies = localStorage.getItem('filterMovies');
+        const localMoviesParse = JSON.parse(localMovies);
+
+        if(localMoviesParse){
+            if(checkbox){
+                const filteredByDuration = localMoviesParse.filter((movie) => {
+                    return movie.duration <= shortMovieDuration;
+                });
+    
+                if(filteredByDuration.length === 0){
+                    setError('Ничего не найдено');
+                    return; 
+                } else{
+                    setMovies(filteredByDuration);
+                }
+            } else{
+                setMovies(localMoviesParse);
+                localStorage.setItem('filterMovies', JSON.stringify(localMoviesParse));
+            }   
+        } else{
+            setError('Начните первый поиск нужных вам фильмов');
+        }
+
+        localStorage.setItem('checkbox', checkbox); //сохраняем состояние чекбокса в localStorage при обычном нажатии
+
+    }, [checkbox])
 
     return(
         <>
