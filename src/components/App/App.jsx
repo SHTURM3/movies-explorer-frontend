@@ -69,50 +69,46 @@ function App() {
     setLoggedIn(false);
     history.push("/");
   };
+
+//Запрос данных пользователя
+  function getUserInfo(){
+    api.getProfile()
+    .then(res => {
+      if(res){
+        setCurrentUser(res);
+      }
+    })
+    .catch((res) => {
+        console.log(res);
+    })
+  };
   
 //Проверка токена
     function checkToken() {
       if(localStorage.getItem('jwt')) {
-      let jwt = localStorage.getItem('jwt');  
+        let jwt = localStorage.getItem('jwt');
         auth.getContent(jwt)
           .then((res) => {
             if(res){
               setLoggedIn(true);
+              getUserInfo();
+            } else {
+              setLoggedIn(false);
+              //history.push('/signin')
             }
           })
           .catch((err) => {
             console.log(err);
-            history.push('/signin'); //если токен передан неккоректно, то запрос auth.getContent не вернет объект с данными пользователя
-          })
+
+          })   
       };
     };
-
-//Запрос данных пользователя
-    function getUserInfo(){
-      api.getProfile()
-      .then(res => {
-        if(res){
-          setCurrentUser(res);
-          history.push('/movies'); 
-        }
-      })
-      .catch((res) => {
-          console.log(res);
-      })
-    }
 
 //Запросы данных пользователя и проверка токена
   useEffect(() => {
     checkToken();
-  }, []);
-
-  useEffect(() => {
-    if(loggedIn) {
-      getUserInfo();
-    } else{
-      history.push("/");
-    }
-  }, [history, loggedIn]);
+    console.log('login', loggedIn);
+  }, [loggedIn]);
 
   return (
     <div className="App">
@@ -123,6 +119,29 @@ function App() {
           
           <main className="content">
             <Switch>
+
+              <ProtectedRoute path="/movies" loggedIn={loggedIn}>
+                <Movies
+                  addMovies={addMovies}
+                  setAddMovies={setAddMovies}
+                  handleMovieDelete={handleMovieDelete}
+                />
+              </ProtectedRoute> 
+
+              <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
+                <SavedMovies
+                  addMovies={addMovies}
+                  setAddMovies={setAddMovies} 
+                  handleMovieDelete={handleMovieDelete}
+                  currentUser={currentUser}
+                  getSavedMovies={getSavedMovies}
+                />
+              </ProtectedRoute>
+
+              <ProtectedRoute path="/profile" loggedIn={loggedIn}>
+                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
+              </ProtectedRoute>
+
               <Route exact path="/">
                 <Main />
               </Route>
@@ -140,28 +159,6 @@ function App() {
                   setCurrentUser={setCurrentUser}
                 />
               </Route>
-
-              <ProtectedRoute path="/movies" loggedIn={loggedIn} >
-                <Movies
-                  addMovies={addMovies}
-                  setAddMovies={setAddMovies}
-                  handleMovieDelete={handleMovieDelete}
-                />
-              </ProtectedRoute> 
-
-              <ProtectedRoute path="/saved-movies" loggedIn={loggedIn} >
-                <SavedMovies
-                  addMovies={addMovies}
-                  setAddMovies={setAddMovies} 
-                  handleMovieDelete={handleMovieDelete}
-                  currentUser={currentUser}
-                  getSavedMovies={getSavedMovies}
-                />
-              </ProtectedRoute>
-
-              <ProtectedRoute path="/profile" loggedIn={loggedIn} >
-                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
-              </ProtectedRoute>
 
               <Route path='*'>
                 <PageNotFound />

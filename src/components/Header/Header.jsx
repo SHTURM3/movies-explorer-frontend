@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, Switch, Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 import logo from '../../images/logo.svg';
 import './Header.css';
 
 function Header() {
     return(
-        <Switch>
             <Route exact path="/">
                 <header className="header" id="header">
                     <Link exact to='/'>
@@ -17,8 +16,7 @@ function Header() {
                         <Link to='/signin' className="header__signin">Войти</Link>
                     </div>
                 </header>
-            </Route>
-        </Switch>       
+            </Route>      
     );
 }
 

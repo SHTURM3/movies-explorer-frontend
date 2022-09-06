@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import * as auth from '../../utils/auth';
 
@@ -11,6 +11,8 @@ import logo from '../../images/logo.svg';
 import '../Login/Login.css';
 
 function Login({setLoggedIn}){
+
+    const history = useHistory();
 
     const { values, handleChange, errors, isValid } = useFormWithValidation();
 
@@ -25,7 +27,8 @@ function handleLogin(email,password){
             return;
         } else{
             localStorage.setItem('jwt', data.token);
-            setLoggedIn(true);    
+            setLoggedIn(true);
+            history.push("/movies");    
         };
     })
     .catch((err) => {
@@ -51,7 +54,7 @@ function handleLogin(email,password){
 
     return(
         <section className="user-auth">
-            <Link exact to='/'>
+            <Link to='/'>
                 <img src={logo} alt="Логотип" className="header__logo header__logo_center" />    
             </Link>
             <div className="user-auth__wrapper">

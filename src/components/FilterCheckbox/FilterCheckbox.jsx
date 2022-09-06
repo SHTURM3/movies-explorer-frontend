@@ -9,6 +9,7 @@ function FilterCheckbox({setCheckbox, locationMovies, locationSavedMovies}){
     function handleCheckbox(event){
         const input = event.target.checked;
         setCheckbox(input);
+        localStorage.setItem('checkbox', input);
     };
 
     useEffect(() => {

@@ -3,7 +3,6 @@ import {useLocation} from 'react-router-dom';
 
 import { shortMovieDuration } from "../../utils/constants";
 
-import api from '../../utils/MainApi';
 import SearchForm from "../SearchForm/SearchForm";
 import SavedMoviesCardList from "../SavedMoviesList/SavedMoviesList";
 
@@ -56,7 +55,7 @@ function SavedMovies({ addMovies, setAddMovies, handleMovieDelete, getSavedMovie
 
     setAddMovies([]);
     
-    if(searchValue === ''){
+    if(searchValue === '' || searchValue === null){
         setError('Нужно ввести ключевое слово');
     } else {
         setError('');
@@ -71,8 +70,6 @@ function SavedMovies({ addMovies, setAddMovies, handleMovieDelete, getSavedMovie
   useEffect(() => {
     getSavedMovies();
   }, []);
-
-  console.log(checkbox);
 
   useEffect(() => {
     if(checkbox){
