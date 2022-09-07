@@ -23,6 +23,7 @@ function Register({setLoggedIn}){
 function handleLogin(email,password){
     return auth.authorize(email,password)
     .then((data) => {
+        console.log(data)
         if(!data.token){
             setRegisterError('Токен передан неккоректно');
         } else if(!data){

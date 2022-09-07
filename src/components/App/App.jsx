@@ -7,6 +7,8 @@ import * as auth from '../../utils/auth';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+
 //Импорты компонентов
 import Header from '../Header/Header';
 import HeaderAfterAuth from '../HeaderAfterAuth/HeaderAfterAuth';
@@ -18,8 +20,6 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
-
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 //Импорт стилей
 import './App.css';
@@ -73,41 +73,49 @@ function App() {
 //Запрос данных пользователя
   function getUserInfo(){
     api.getProfile()
-    .then(res => {
-      if(res){
-        setCurrentUser(res);
+    .then(user => {
+      if(user){
+        setCurrentUser(user);
       }
     })
-    .catch((res) => {
-        console.log(res);
+    .catch((err) => {
+        console.log(err);
     })
   };
   
 //Проверка токена
     function checkToken() {
-      if(localStorage.getItem('jwt')) {
-        let jwt = localStorage.getItem('jwt');
+      let jwt = localStorage.getItem('jwt');
+
+      if(jwt) {
         auth.getContent(jwt)
           .then((res) => {
-            if(res){
+            if(res.name && res.email){
               setLoggedIn(true);
-              getUserInfo();
             } else {
               setLoggedIn(false);
-              //history.push('/signin')
+              handleSignOut();
             }
           })
           .catch((err) => {
             console.log(err);
-
           })   
+      } else{
+        console.log('Unable token');
       };
     };
 
 //Запросы данных пользователя и проверка токена
   useEffect(() => {
-    checkToken();
-    console.log('login', loggedIn);
+    checkToken();  
+  }, [history]);
+
+  useEffect(() => {
+    if(loggedIn){
+      getUserInfo();
+    } else{
+      checkToken();
+    }
   }, [loggedIn]);
 
   return (
@@ -115,35 +123,12 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
 
-          {loggedIn ? <HeaderAfterAuth /> : <Header />}
-          
-          <main className="content">
             <Switch>
 
-              <ProtectedRoute path="/movies" loggedIn={loggedIn}>
-                <Movies
-                  addMovies={addMovies}
-                  setAddMovies={setAddMovies}
-                  handleMovieDelete={handleMovieDelete}
-                />
-              </ProtectedRoute> 
-
-              <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
-                <SavedMovies
-                  addMovies={addMovies}
-                  setAddMovies={setAddMovies} 
-                  handleMovieDelete={handleMovieDelete}
-                  currentUser={currentUser}
-                  getSavedMovies={getSavedMovies}
-                />
-              </ProtectedRoute>
-
-              <ProtectedRoute path="/profile" loggedIn={loggedIn}>
-                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
-              </ProtectedRoute>
-
               <Route exact path="/">
+                {loggedIn ? <HeaderAfterAuth /> : <Header />}
                 <Main />
+                <Footer />
               </Route>
 
               <Route path="/signup">
@@ -160,16 +145,39 @@ function App() {
                 />
               </Route>
 
+              <ProtectedRoute path="/movies" loggedIn={loggedIn}>
+                <HeaderAfterAuth />
+                <Movies
+                  addMovies={addMovies}
+                  setAddMovies={setAddMovies}
+                  handleMovieDelete={handleMovieDelete}
+                />
+                <Footer />
+              </ProtectedRoute> 
+
+              <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
+                <HeaderAfterAuth />
+                <SavedMovies
+                  addMovies={addMovies}
+                  setAddMovies={setAddMovies} 
+                  handleMovieDelete={handleMovieDelete}
+                  currentUser={currentUser}
+                  getSavedMovies={getSavedMovies}
+                />
+                <Footer />
+              </ProtectedRoute>
+
+              <ProtectedRoute path="/profile" loggedIn={loggedIn}>
+                <HeaderAfterAuth />
+                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
+              </ProtectedRoute>
+
               <Route path='*'>
                 <PageNotFound />
               </Route>
 
             </Switch>    
-          </main>
 
-          <Route path='/(|movies|saved-movies)/'>
-            <Footer />
-          </Route>
         </div>
       </CurrentUserContext.Provider>
     </div>
