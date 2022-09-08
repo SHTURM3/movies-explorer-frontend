@@ -11,7 +11,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 import '../Movies/Movies.css';
 
-function Movies({addMovies, setAddMovies, handleMovieDelete}){
+function Movies({addMovies, setAddMovies, handleMovieDelete, getSavedMovies}){
 
 //Используется для отображения информации компонента с поиском фильмов согласно страницам, где он находится
     const location = useLocation();
@@ -136,6 +136,8 @@ function Movies({addMovies, setAddMovies, handleMovieDelete}){
 //Отображение ранее введенной информации при монтировании компонента
     useEffect(() => {
         setPreloader(false);
+
+        getSavedMovies();
 
     //Отфильтрованные фильмы без учета длительности фильма
         const localMovies = localStorage.getItem('filterMovies');

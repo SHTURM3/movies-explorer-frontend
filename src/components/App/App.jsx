@@ -164,6 +164,7 @@ function App() {
                     addMovies={addMovies}
                     setAddMovies={setAddMovies}
                     handleMovieDelete={handleMovieDelete}
+                    getSavedMovies={getSavedMovies}
                   />
                   <Footer />
                 </ProtectedRoute> 
