@@ -154,7 +154,7 @@ function App() {
 
               ?
 
-              null
+              <Preloader />
 
               :
 
