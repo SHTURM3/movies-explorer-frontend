@@ -47,7 +47,6 @@ function App() {
     api.getMovies()
         .then(res => {
           if(res) {
-            console.log(currentUser);
             const userMovies = res.filter((movie) => movie.owner === currentUser._id);
             setAddMovies(userMovies);
           } 
