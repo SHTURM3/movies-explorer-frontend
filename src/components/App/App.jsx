@@ -42,6 +42,7 @@ function App() {
 //Стейт переменная состояния прелоадера
   const [preloader, setPreloader] = useState(true);  
 
+//Получение сохраненных фильмов с сервера
   function getSavedMovies(){
     api.getMovies()
         .then(res => {
@@ -106,9 +107,7 @@ function App() {
           .catch((err) => {
             console.log(err);
           })   
-      } else{
-        console.log('Unable token');
-      };
+      }
     };
 
 //Запросы данных пользователя и проверка токена
@@ -119,8 +118,6 @@ function App() {
   useEffect(() => {
     if(loggedIn){
       getUserInfo();
-    } else{
-      checkToken();
     }
   }, [loggedIn]);
 
@@ -129,75 +126,75 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
 
-            <Switch>
+          <Switch>
+          
+            <Route exact path="/">
+              {loggedIn ? <HeaderAfterAuth /> : <Header />}
+              <Main />
+              <Footer />
+            </Route>
 
-              <Route exact path="/">
-                {loggedIn ? <HeaderAfterAuth /> : <Header />}
-                <Main />
-                <Footer />
-              </Route>
+            <Route path="/signup">
+              <Register 
+                setLoggedIn={setLoggedIn}
+              />
+            </Route>
 
-              <Route path="/signup">
-                <Register 
-                  setLoggedIn={setLoggedIn}
-                />
-              </Route>
+            <Route path="/signin">
+              <Login
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn} 
+                setCurrentUser={setCurrentUser}
+              />
+            </Route>            
 
-              <Route path="/signin">
-                <Login
-                  loggedIn={loggedIn}
-                  setLoggedIn={setLoggedIn} 
-                  setCurrentUser={setCurrentUser}
-                />
-              </Route>
-
-              {
+            {
               
-                preloader 
+              preloader 
 
-                ?
+              ?
 
-                <Preloader />
-                
-                :
+              null
 
-                <>
-                  <ProtectedRoute path="/movies" loggedIn={loggedIn}>
-                    <HeaderAfterAuth />
-                    <Movies
-                      addMovies={addMovies}
-                      setAddMovies={setAddMovies}
-                      handleMovieDelete={handleMovieDelete}
-                    />
-                    <Footer />
-                  </ProtectedRoute> 
+              :
 
-                  <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
-                    <HeaderAfterAuth />
-                    <SavedMovies
-                      addMovies={addMovies}
-                      setAddMovies={setAddMovies} 
-                      handleMovieDelete={handleMovieDelete}
-                      currentUser={currentUser}
-                      getSavedMovies={getSavedMovies}
-                    />
-                    <Footer />
-                  </ProtectedRoute>
+              <>
+                <ProtectedRoute path="/movies" loggedIn={loggedIn}>
+                  <HeaderAfterAuth />
+                  <Movies
+                    addMovies={addMovies}
+                    setAddMovies={setAddMovies}
+                    handleMovieDelete={handleMovieDelete}
+                  />
+                  <Footer />
+                </ProtectedRoute> 
 
-                  <ProtectedRoute path="/profile" loggedIn={loggedIn}>
-                    <HeaderAfterAuth />
-                    <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
-                  </ProtectedRoute>
+                <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
+                  <HeaderAfterAuth />
+                  <SavedMovies
+                    addMovies={addMovies}
+                    setAddMovies={setAddMovies} 
+                    handleMovieDelete={handleMovieDelete}
+                    currentUser={currentUser}
+                    getSavedMovies={getSavedMovies}
+                  />
+                  <Footer />
+                </ProtectedRoute>
 
-                </>
+                <ProtectedRoute path="/profile" loggedIn={loggedIn}>
+                  <HeaderAfterAuth />
+                  <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
+                </ProtectedRoute>
 
-              }
+              </>
+
+            }
 
               <Route path='*'>
                 <PageNotFound />
               </Route>
 
-            </Switch>    
+          </Switch>
 
         </div>
       </CurrentUserContext.Provider>
