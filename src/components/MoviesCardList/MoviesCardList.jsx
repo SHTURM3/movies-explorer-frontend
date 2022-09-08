@@ -7,6 +7,8 @@ import { useCurrentWidth } from '../../hooks/useCurrentWidth';
 
 import { getMoreFilms } from '../../utils/getMoreFilms';
 
+import api from '../../utils/MainApi';
+
 import "../MoviesCardList/MoviesCardList.css";
 
 function MoviesCardList({movies, addMovies, saveMovie, handleMovieDelete}){
@@ -24,7 +26,7 @@ function MoviesCardList({movies, addMovies, saveMovie, handleMovieDelete}){
 
 // Проверка наличия лайка
     function isLike(id){
-        const likedMovies = addMovies.some((addMovie) => addMovie.movieId === id);
+        let likedMovies = addMovies.some((addMovie) => addMovie.movieId === id);
         return likedMovies;
     };
 
