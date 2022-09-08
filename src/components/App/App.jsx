@@ -21,6 +21,8 @@ import Profile from '../Profile/Profile';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 
+import Preloader from '../Preloader/Preloader';
+
 //Импорт стилей
 import './App.css';
 
@@ -29,7 +31,7 @@ function App() {
   const history = useHistory();
 
 //Стейт переменная статуса пользователя
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(undefined);
 
 // Стейт переменная информации о пользователе
   const [currentUser, setCurrentUser ] = useState({});
@@ -37,11 +39,16 @@ function App() {
 //Стейт-переменная сохраненных фильмов (фильмы из MainApi)
   const [addMovies, setAddMovies] = useState([]);
 
+//Стейт переменная состояния прелоадера
+  const [preloader, setPreloader] = useState(true);  
+
   function getSavedMovies(){
     api.getMovies()
         .then(res => {
           if(res) {
-            setAddMovies(res);
+            console.log(currentUser);
+            const userMovies = res.filter((movie) => movie.owner === currentUser._id);
+            setAddMovies(userMovies);
           } 
         })
         .catch((err) => {
@@ -86,16 +93,15 @@ function App() {
 //Проверка токена
     function checkToken() {
       let jwt = localStorage.getItem('jwt');
-
       if(jwt) {
         auth.getContent(jwt)
           .then((res) => {
             if(res.name && res.email){
               setLoggedIn(true);
-            } else {
-              setLoggedIn(false);
-              handleSignOut();
             }
+          })
+          .finally(() => {
+            setPreloader(false);
           })
           .catch((err) => {
             console.log(err);
@@ -107,8 +113,8 @@ function App() {
 
 //Запросы данных пользователя и проверка токена
   useEffect(() => {
-    checkToken();  
-  }, [history]);
+    checkToken();
+  });
 
   useEffect(() => {
     if(loggedIn){
@@ -145,32 +151,47 @@ function App() {
                 />
               </Route>
 
-              <ProtectedRoute path="/movies" loggedIn={loggedIn}>
-                <HeaderAfterAuth />
-                <Movies
-                  addMovies={addMovies}
-                  setAddMovies={setAddMovies}
-                  handleMovieDelete={handleMovieDelete}
-                />
-                <Footer />
-              </ProtectedRoute> 
+              {
+              
+                preloader 
 
-              <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
-                <HeaderAfterAuth />
-                <SavedMovies
-                  addMovies={addMovies}
-                  setAddMovies={setAddMovies} 
-                  handleMovieDelete={handleMovieDelete}
-                  currentUser={currentUser}
-                  getSavedMovies={getSavedMovies}
-                />
-                <Footer />
-              </ProtectedRoute>
+                ?
 
-              <ProtectedRoute path="/profile" loggedIn={loggedIn}>
-                <HeaderAfterAuth />
-                <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
-              </ProtectedRoute>
+                <Preloader />
+                
+                :
+
+                <>
+                  <ProtectedRoute path="/movies" loggedIn={loggedIn}>
+                    <HeaderAfterAuth />
+                    <Movies
+                      addMovies={addMovies}
+                      setAddMovies={setAddMovies}
+                      handleMovieDelete={handleMovieDelete}
+                    />
+                    <Footer />
+                  </ProtectedRoute> 
+
+                  <ProtectedRoute path="/saved-movies" loggedIn={loggedIn}>
+                    <HeaderAfterAuth />
+                    <SavedMovies
+                      addMovies={addMovies}
+                      setAddMovies={setAddMovies} 
+                      handleMovieDelete={handleMovieDelete}
+                      currentUser={currentUser}
+                      getSavedMovies={getSavedMovies}
+                    />
+                    <Footer />
+                  </ProtectedRoute>
+
+                  <ProtectedRoute path="/profile" loggedIn={loggedIn}>
+                    <HeaderAfterAuth />
+                    <Profile setCurrentUser={setCurrentUser} handleSignOut={handleSignOut} />
+                  </ProtectedRoute>
+
+                </>
+
+              }
 
               <Route path='*'>
                 <PageNotFound />
