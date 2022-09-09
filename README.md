@@ -1,11 +1,8 @@
-# movies-explorer-frontend
-Репозиторий проекта `Movies`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с фильмами и данными пользователя.
+# Movies (Frontend)
+Репозиторий проекта `Movies`, включающий фронтенд часть приложения со следующими возможностями: авторизации и регистрации пользователей, операции с фильмами и данными пользователя. Бэкенд часть приложения находиться по этой ссылке https://github.com/SHTURM3/movies-explorer-api .
 
 # Ссылка на макет
 https://www.figma.com/file/r0pAjtXvjSmCh2MWILkjkx/Diploma-(Copy)?node-id=891%3A3857
   
-# Ссылка на pull-request
-https://github.com/SHTURM3/movies-explorer-frontend/pull/2
-
 # Домен
-https://movies.vizetann.nomoredomains.sbs/
+https://movies.vizetann.nomoredomains.sbs/ (скорее всего на данный момент домен не актуален из-за финансовых соображений)
