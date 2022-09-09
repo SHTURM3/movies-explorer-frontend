@@ -6,3 +6,4 @@ https://www.figma.com/file/r0pAjtXvjSmCh2MWILkjkx/Diploma-(Copy)?node-id=891%3A3
   
 # Домен
 https://movies.vizetann.nomoredomains.sbs/ (скорее всего на данный момент домен не актуален из-за финансовых соображений)
+Вы можете запустить проект локально для более подробного изучения. 
