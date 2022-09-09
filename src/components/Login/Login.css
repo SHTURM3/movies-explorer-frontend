@@ -101,7 +101,7 @@
     margin-bottom: 16px;
     cursor: pointer;
 }
-.user-auth__btn{
+.user-auth__btn:enabled{
     display: block;
     width: 100%;
     border: none;
@@ -117,9 +117,13 @@
     padding: 15px 0;
     cursor: pointer;
 }
+.user-auth__btn_disabled{
+    background-color: #E8E8E8;
+}
 .user-auth__btn:hover{
     opacity: 0.7;
 }
+
 
 .validation-error{
     display: none;

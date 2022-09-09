@@ -48,11 +48,6 @@
     align-items: center;
     text-decoration: none;
 }
-.header__account_adaptive{
-    display: flex;
-    margin: 0 auto;
-    max-width: 100px;
-}
 .header__text{
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
@@ -128,6 +123,11 @@
     } 
     .header__account{
         display: none;
+    }
+    .header__account_adaptive{
+        display: flex;
+        margin: 0 auto;
+        max-width: 100px;
     } 
 }
 
